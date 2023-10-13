@@ -42,6 +42,8 @@ public class CacheService
         var customers = new List<Customer>();
         using (var context = new SqlCacheDbContext())
         {
+            var dataToRemove = await context.Customers.ToListAsync();
+            if(dataToRemove.Any()) context.RemoveRange(dataToRemove);
 
             for (int i = 0; i < 2000; i++)
             {
